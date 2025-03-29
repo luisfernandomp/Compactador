@@ -1,3 +1,8 @@
+/* 
+    Autor: Luis Fernando de Mesquita Pereira 10410686
+    Data: 29/03/2025
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -26,6 +31,7 @@ int main(int argc, char *argv[])
     int ocorrencias = 1, indice_match = 0;
 
     for(int i = 0; i < tamanho_palavra; i++){ 
+        // Percorre o vetor até encontrar a próxima vetor igual ao inicio do subvetor criado
         if(matches[0] != argv[1][i]){
             matches[indice_match] = argv[1][i];
             indice_match++;
@@ -41,6 +47,8 @@ int main(int argc, char *argv[])
             while(continuar && i <= tamanho_palavra){
 
                 int j;
+                // Com a palavra encontrada percorre o vetor maior para verificar se nas próximas possições existe ocorrências da 
+                // Mesma palavra, somente se forem adjacentes
                 for(j = 0; j < M; j++){
                     palavra[j] = argv[1][i];
                     i++;
@@ -48,16 +56,22 @@ int main(int argc, char *argv[])
 
                 palavra[j] = '\0';
     
+                // Verifica se o subvetor encontrado é igual a palavra da primeira ocorrência
+                // Se sim, incrementa o contador de ocorrencias
                 if(strcmp(palavra, matches) == 0){
                     ocorrencias++;
                 }
                 else{
+                    //  Se a próxima palavra encontrada for diferente, faz um decremento do vetor, pois o i foi incrementado para
+                    // encontrar essa palavra e para de percorrer o vetor em busca da palavra
                     i -= strlen(palavra);
                     continuar = false;
                 }
             }
 
             printf("%s%d", matches, ocorrencias);
+
+            // Reinicia o vetor de subpalavra e o seu indice
             indice_match = 0;
             ocorrencias = 1;
             matches[0] = '\0';
